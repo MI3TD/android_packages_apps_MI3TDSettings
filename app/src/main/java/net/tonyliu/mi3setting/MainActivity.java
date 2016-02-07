@@ -17,9 +17,11 @@ public class MainActivity extends AppCompatActivity {
             case 1:
                 mic1.setChecked(true);
                 mic2.setChecked(false);
+                break;
             case 2:
                 mic2.setChecked(true);
                 mic1.setChecked(false);
+                break;
         }
         RadioGroup group = (RadioGroup)this.findViewById(R.id.raidoGroup);
         //绑定一个匿名监听器
