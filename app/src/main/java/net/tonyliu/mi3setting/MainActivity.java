@@ -21,11 +21,9 @@ public class MainActivity extends AppCompatActivity {
         switch (getMicMode()){
             case 1:
                 mic1.setChecked(true);
-                mic2.setChecked(false);
                 break;
             case 2:
                 mic2.setChecked(true);
-                mic1.setChecked(false);
                 break;
         }
         RadioGroup group = (RadioGroup)this.findViewById(R.id.raidoGroup);
@@ -57,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast toast=Toast.makeText(getApplicationContext(),"正在重启基带...",Toast.LENGTH_LONG);
                 toast.show();
             }else {
-                Toast toast=Toast.makeText(getApplicationContext(),"无法获取Root权限，请检查！",Toast.LENGTH_LONG);
+                Toast toast=Toast.makeText(getApplicationContext(),"无法获取Root权限，请检查！",Toast.LENGTH_SHORT);
                 toast.show();
             }
             }
@@ -99,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
     * 运行Shell命令
     * 方法 reommand((String）Shell命令）
     * 重写 以root权限运行
+    * 方法 reommand((String）Shell命令,True）
     */
     public static boolean runCommand(String cmd) { //不提权运行shell指令
         Process process = null;
