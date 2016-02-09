@@ -26,6 +26,7 @@ dependencies {
     provided files(getLayoutLibPath())
     compile 'com.android.support:appcompat-v7:23.1.1'
 }
+
 def getLayoutLibPath() {
     return "${android.getSdkDirectory().getAbsolutePath()}" + "/platforms/" + android.compileSdkVersion + "/data/layoutlib.jar"
 }
