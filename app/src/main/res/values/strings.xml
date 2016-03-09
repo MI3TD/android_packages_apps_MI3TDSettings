@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Mi3 Setting</string>
+    <string name="app_name">MI3 TD Settings</string>
+    <string name="category_audio_vns">Audio VNS</string>
+    <string name="audio_vns_1">Single MIC</string>
+    <string name="audio_vns_2">Dual MIC</string>
+    <string name="category_baseband">Baseband</string>
+    <string name="baseband_reboot">Restart baseband</string>
 </resources>
