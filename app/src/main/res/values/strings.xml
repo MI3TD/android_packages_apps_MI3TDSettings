@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Mi3 Setting</string>
+    <string name="app_name">Mi3TD Extra Settings</string>
+    <string name="CNR">Call Noise Reduction</string>
+    <string name="Smic">Single-microphone noise reduction</string>
+    <string name="Dmic">Dual-microphone noise reduction</string>
+    <string name="Modem">Modem</string>
+    <string name="cButton">Click here to restart the Modem</string>
 </resources>

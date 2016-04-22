@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MI3TD 额外设置</string>
+    <string name="CNR">通话降噪</string>
+    <string name="Smic">双麦克风降噪</string>
+    <string name="Dmic">单麦克风降噪</string>
+    <string name="Modem">基带</string>
+    <string name="cButton">点此重启基带</string>
+</resources>
