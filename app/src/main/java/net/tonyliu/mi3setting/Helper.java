@@ -1,7 +1,8 @@
 package net.tonyliu.mi3setting;
 
-import android.os.FileUtils;
 import android.os.SystemProperties;
+import android.widget.Toast;
+import android.content.Context;
 
 import java.lang.RuntimeException;
 import java.io.BufferedReader;
@@ -116,5 +117,10 @@ public class Helper {
 
     public static boolean get(String name, boolean def) {
         return SystemProperties.getBoolean(name, def);
+    }
+
+    public static void showRootFail(Context context) {
+        Toast toast = Toast.makeText(context, context.getString(R.string.root_failed), Toast.LENGTH_SHORT);
+        toast.show();
     }
 }

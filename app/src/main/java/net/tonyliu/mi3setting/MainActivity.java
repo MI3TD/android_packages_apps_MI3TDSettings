@@ -48,11 +48,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (Helper.writeLine("/sys/class/spi_master/spi0/spi0.0/reset", "1")) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "正在重启基带...", Toast.LENGTH_LONG);
+                    Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.baseband_resetting), Toast.LENGTH_LONG);
                     toast.show();
                 } else {
-                    Toast toast = Toast.makeText(getApplicationContext(), "无法获取Root权限，请检查！", Toast.LENGTH_SHORT);
-                    toast.show();
+                    Helper.showRootFail(getApplicationContext());
                 }
             }
         });
