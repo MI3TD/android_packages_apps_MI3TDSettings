@@ -24,24 +24,24 @@ public class Helper {
         };
 
         Process process = Runtime.getRuntime().exec(cmd);
+
         try {
             if (input != null) {
-                DataOutputStream os = new DataOutputStream(process.getOutputStream());
-                try {
+                try (DataOutputStream os = new DataOutputStream(process.getOutputStream())) {
                     os.writeBytes(input);
                     os.flush();
-                } finally {
-                    os.close();
                 }
             }
 
-            BufferedReader in =
-                    new BufferedReader(new InputStreamReader(process.getInputStream()));
             StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = in.readLine()) != null) {
-                sb.append(line);
-                sb.append("\n");
+            try (InputStreamReader isr = new InputStreamReader(process.getInputStream())) {
+                try (BufferedReader in = new BufferedReader(isr)) {
+                    String line;
+                    while ((line = in.readLine()) != null) {
+                        sb.append(line);
+                        sb.append("\n");
+                    }
+                }
             }
 
             try {
@@ -61,32 +61,20 @@ public class Helper {
     }
 
     public static String readOneLine(String fileName) {
-        String line = null;
-        BufferedReader reader = null;
-
-        try {
-            reader = new BufferedReader(new FileReader(fileName), 512);
-            line = reader.readLine();
-        } catch (IOException e) {
-        } finally {
-            try {
-                if (reader != null) {
-                    reader.close();
-                }
-            } catch (IOException e) {
-                // ignored, not much we can do anyway
+        try (FileReader fr = new FileReader(fileName)) {
+            try (BufferedReader reader = new BufferedReader(fr, 512)) {
+                return reader.readLine();
             }
+        } catch (IOException e) {
+            // ignored, not much we can do anyway
+            return null;
         }
-
-        return line;
     }
 
     public static boolean writeLine(String fileName, String value) {
-        try {
-            FileOutputStream fos = new FileOutputStream(fileName);
+        try (FileOutputStream fos = new FileOutputStream(fileName)) {
             fos.write(value.getBytes());
             fos.flush();
-            fos.close();
         } catch (IOException ignored1) {
             try {
                 exec(true, "cat > /sys/class/spi_master/spi0/spi0.0/reset", value);
