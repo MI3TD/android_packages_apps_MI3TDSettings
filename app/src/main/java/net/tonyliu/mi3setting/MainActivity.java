@@ -9,7 +9,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-import java.io.DataOutputStream;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
     @Override
@@ -34,20 +34,20 @@ public class MainActivity extends AppCompatActivity {
                 int radioButtonId = arg0.getCheckedRadioButtonId();
 
                 switch (radioButtonId) {
-                case R.id.Mic1:
-                    MicMode.set(1);
-                    break;
+                    case R.id.Mic1:
+                        MicMode.set(1);
+                        break;
 
-                case R.id.Mic2:
-                    MicMode.set(2);
-                    break;
+                    case R.id.Mic2:
+                        MicMode.set(2);
+                        break;
                 }
             }
         });
         reBaseband.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (runCommand("echo 1 > /sys/class/spi_master/spi0/spi0.0/reset", true)) {
+                if (Helper.writeLine("/sys/class/spi_master/spi0/spi0.0/reset", "1")) {
                     Toast toast = Toast.makeText(getApplicationContext(), "正在重启基带...", Toast.LENGTH_LONG);
                     toast.show();
                 } else {
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     */
     public static class MicMode {
         static int get() { //获取MicMode值
-            switch (SystemProperties.get("persist.audio.vns.mode")) {
+            switch (Helper.get("persist.audio.vns.mode")) {
                 case "1":
                     return 1;
                 case "2":
@@ -78,62 +78,23 @@ public class MainActivity extends AppCompatActivity {
         }
 
         static void set(int val) {//更改MicMode值
-            switch (val) {
-                case 1:
-                    SystemProperties.set("persist.audio.vns.mode", String.valueOf(val));
-                    break;
-                case 2:
-                    SystemProperties.set("persist.audio.vns.mode", String.valueOf(val));
-                    break;
-                default:
-                    throw new NumberFormatException();
+            try {
+                switch (val) {
+                    case 1:
+                        Helper.set("persist.audio.vns.mode", String.valueOf(val));
+                        break;
+                    case 2:
+                        Helper.set("persist.audio.vns.mode", String.valueOf(val));
+                        break;
+                    default:
+                        throw new NumberFormatException();
+                }
+            } catch (IOException exception) {
+                exception.printStackTrace();
             }
-            SystemProperties.set("persist.audio.vns.mode", String.valueOf(val));
         }
     }
 
     //=======================MicMode=======================
-    //=======================RunShell======================
-    /*
-    * 运行Shell命令
-    * 方法 reommand((String）Shell命令）
-    * 重写 以root权限运行
-    * 方法 reommand((String）Shell命令,True）
-    */
-    public static boolean runCommand(String cmd) { //不提权运行shell指令
-        return runCommand(cmd, false);
-    }
-
-    public static boolean runCommand(String cmd, boolean su) {//重写 提权运行shell指令
-        Process process = null;
-        DataOutputStream os = null;
-        String ShellMode = null;
-        if (su) {
-            ShellMode = "su"; //提权
-        } else {
-            ShellMode = "sh"; //不提权
-        }
-        try {
-            process = Runtime.getRuntime().exec(ShellMode); //切换到root帐号
-            os = new DataOutputStream(process.getOutputStream());
-            os.writeBytes(cmd + "\n");
-            os.writeBytes("exit\n");
-            os.flush();
-            return process.waitFor() == 0;
-        } catch (Exception e) {
-            return false;
-        } finally {
-            try {
-                if (os != null) {
-                    os.close();
-                }
-                if (process != null) {
-                    process.destroy();
-                }
-            } catch (Exception ignored) {
-            }
-        }
-    }
-    //=======================RunShell======================
 }
 
