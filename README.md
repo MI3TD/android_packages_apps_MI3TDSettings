@@ -1,8 +1,10 @@
-# Xiaomi MI3 TD Extra Settings app#
-小米3TD额外设置app
+# MI3 TD Advanced Settings app #
+小米 3TD 高级设置 app
 
 
-cm的设置并不支持小米3的部分特性，所以这个app用来管理这部分功能
-In Xiaomi MI3, CyanogenMod settings does not support some features, so for this app to manage this part of the function
-###Develop###
+CM/AOSP 的设置并不支持小米 3TD 的部分特性，这个 app 用来提供这些特性并提供设置界面
+
+Some features of MI3TD are not supported by CyanogenMod/AOSP settings, this app is introduced to implement and provide setting for these features
+
+### Develop Env ###
 Android Studio 2.0
