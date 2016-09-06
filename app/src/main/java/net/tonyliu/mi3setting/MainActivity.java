@@ -1,12 +1,12 @@
 package net.tonyliu.mi3setting;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.SystemProperties;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.os.SystemProperties;
 import android.widget.Toast;
 
 import java.io.DataOutputStream;
@@ -19,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
         final RadioButton mic1 = (RadioButton) findViewById(R.id.Mic1);
         final RadioButton mic2 = (RadioButton) findViewById(R.id.Mic2);
         final Button reBaseband = (Button) findViewById(R.id.button);
-        //开始读取MicMode
         switch (MicMode.get()) {
             case 1:
                 mic1.setChecked(true);
@@ -29,32 +28,26 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         RadioGroup group = (RadioGroup) this.findViewById(R.id.raidoGroup);
-        //绑定一个匿名监听器
         group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup arg0, int arg1) {
-                // TODO Auto-generated method stub
-                //获取变更后的选中项的ID
                 int radioButtonId = arg0.getCheckedRadioButtonId();
-                //根据ID获取RadioButton的实例
-                RadioButton rb = (RadioButton) MainActivity.this.findViewById(radioButtonId);
-                //通过判断对象来设置模式
-                if (rb == mic1) {
-                    MicMode.set(1);
-                }
-                if (rb == mic2) {
-                    MicMode.set(2);
-                } else {
-//nothing
-                }
 
+                switch (radioButtonId) {
+                case R.id.Mic1:
+                    MicMode.set(1);
+                    break;
+
+                case R.id.Mic2:
+                    MicMode.set(2);
+                    break;
+                }
             }
         });
         reBaseband.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (runCommand("echo 1 > /sys/class/spi_master/spi0/spi0.0/reset", true) == true) {
+                if (runCommand("echo 1 > /sys/class/spi_master/spi0/spi0.0/reset", true)) {
                     Toast toast = Toast.makeText(getApplicationContext(), "正在重启基带...", Toast.LENGTH_LONG);
                     toast.show();
                 } else {
@@ -72,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     * 方法 更改设置 MicMode.set(值) 可取 1、2,否则抛出异常
     */
     public static class MicMode {
-        public static int get() { //获取MicMode值
+        static int get() { //获取MicMode值
             switch (SystemProperties.get("persist.audio.vns.mode")) {
                 case "1":
                     return 1;
@@ -84,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-        public static void set(int val) {//更改MicMode值
+        static void set(int val) {//更改MicMode值
             switch (val) {
                 case 1:
                     SystemProperties.set("persist.audio.vns.mode", String.valueOf(val));
@@ -97,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
             }
             SystemProperties.set("persist.audio.vns.mode", String.valueOf(val));
         }
-
     }
 
     //=======================MicMode=======================
@@ -116,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         Process process = null;
         DataOutputStream os = null;
         String ShellMode = null;
-        if (su = true) {
+        if (su) {
             ShellMode = "su"; //提权
         } else {
             ShellMode = "sh"; //不提权
@@ -135,8 +127,10 @@ public class MainActivity extends AppCompatActivity {
                 if (os != null) {
                     os.close();
                 }
-                process.destroy();
-            } catch (Exception e) {
+                if (process != null) {
+                    process.destroy();
+                }
+            } catch (Exception ignored) {
             }
         }
     }
