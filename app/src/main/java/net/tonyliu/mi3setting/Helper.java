@@ -77,7 +77,7 @@ public class Helper {
             fos.flush();
         } catch (IOException ignored1) {
             try {
-                exec(true, "cat > /sys/class/spi_master/spi0/spi0.0/reset", value);
+                exec(true, "cat > '" + fileName + "'", value);
             } catch (IOException ignored2) {
                 ignored2.printStackTrace();;
                 return false;
