@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MI3 TD Settings</string>
+    <string name="app_name">MI3 TD Extra Settings</string>
     <string name="category_audio_vns">Audio VNS</string>
     <string name="audio_vns_1">Single MIC</string>
     <string name="audio_vns_2">Dual MIC</string>

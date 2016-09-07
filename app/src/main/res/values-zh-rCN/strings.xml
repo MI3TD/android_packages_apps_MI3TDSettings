@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MI3 TD 设置</string>
+    <string name="app_name">MI3 TD 附加设置</string>
     <string name="category_audio_vns">通话降噪设置</string>
     <string name="audio_vns_1">单麦克风降噪</string>
     <string name="audio_vns_2">双麦克风降噪</string>
