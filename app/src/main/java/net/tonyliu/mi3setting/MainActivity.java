@@ -7,13 +7,11 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.preference.PreferenceManager;
 import android.preference.PreferenceFragment;
 
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
-    private PreferenceManager preferenceManager_;
 
     public MainActivity() {
         super();
