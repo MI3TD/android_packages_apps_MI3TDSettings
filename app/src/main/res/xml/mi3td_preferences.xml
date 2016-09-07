@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/category_sounds">
+
+        <ListPreference
+            android:defaultValue="false"
+            android:icon="@drawable/ic_settings_voice"
+            android:title="@string/cnr"
+            android:summary="%s"
+            android:entries="@array/cnr_titles"
+            android:entryValues="@array/cnr_values"
+            android:key="persist.audio.vns.mode"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/cellular_network">
+
+        <net.tonyliu.mi3setting.BasebandResetPreference
+            android:icon="@drawable/ic_settings_phone"
+            android:title="@string/baseband_reset"
+            android:dialogIcon="@drawable/ic_warning"
+            android:summary="@string/baseband_reset_summary"
+            android:dialogMessage="@string/baseband_reset_confirmmessage"
+            />
+    </PreferenceCategory>
+</PreferenceScreen>

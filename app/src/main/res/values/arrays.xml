@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="cnr_values">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="cnr_titles">
+        <item>@string/cnr_single</item>
+        <item>@string/cnr_dual</item>
+    </string-array>
+</resources>

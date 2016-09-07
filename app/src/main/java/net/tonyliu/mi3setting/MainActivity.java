@@ -1,99 +1,81 @@
 package net.tonyliu.mi3setting;
 
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Toast;
-
+import android.preference.PreferenceFragment;
 
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
+    private PreferenceManager preferenceManager_;
+
+    public MainActivity() {
+        super();
+
+        switch (Helper.get("persist.audio.vns.mode")) {
+            case "1":
+            case "2":
+                break;
+            default:
+                try {
+                    Helper.set("persist.audio.vns.mode", "2");
+                } catch (IOException ignored) {
+                    ignored.printStackTrace();
+                }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        final RadioButton mic1 = (RadioButton) findViewById(R.id.Mic1);
-        final RadioButton mic2 = (RadioButton) findViewById(R.id.Mic2);
-        final Button reBaseband = (Button) findViewById(R.id.button);
-        switch (MicMode.get()) {
-            case 1:
-                mic1.setChecked(true);
-                break;
-            case 2:
-                mic2.setChecked(true);
-                break;
-        }
-        RadioGroup group = (RadioGroup) this.findViewById(R.id.raidoGroup);
-        group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup arg0, int arg1) {
-                int radioButtonId = arg0.getCheckedRadioButtonId();
 
-                switch (radioButtonId) {
-                    case R.id.Mic1:
-                        MicMode.set(1);
-                        break;
-
-                    case R.id.Mic2:
-                        MicMode.set(2);
-                        break;
-                }
-            }
-        });
-        reBaseband.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Helper.writeLine("/sys/class/spi_master/spi0/spi0.0/reset", "1")) {
-                    Toast toast = Toast.makeText(getApplicationContext(), getString(R.string.baseband_resetting), Toast.LENGTH_LONG);
-                    toast.show();
-                } else {
-                    Helper.showRootFail(getApplicationContext());
-                }
-            }
-        });
+        getFragmentManager().beginTransaction().replace(android.R.id.content, new MI3TDPreferences()).commit();
     }
 
-    //=======================MicMode=======================
-    /*
-    * 获取通话降噪设置
-    * 方法 获取设置 MicMode.get()
-    * 方法 更改设置 MicMode.set(值) 可取 1、2,否则抛出异常
-    */
-    public static class MicMode {
-        static int get() { //获取MicMode值
-            switch (Helper.get("persist.audio.vns.mode")) {
-                case "1":
-                    return 1;
-                case "2":
-                    return 2;
-                default:
-                    set(2);
-                    return 2;
+    public static class MI3TDPreferences extends PreferenceFragment
+            implements OnSharedPreferenceChangeListener  {
+
+        @Override
+        public void onCreate(final Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+
+            SharedPreferences preferences = getPreferenceManager().getSharedPreferences();
+            preferences.edit()
+                    .putString("persist.audio.vns.mode", Helper.get("persist.audio.vns.mode"))
+                    .apply();
+
+            addPreferencesFromResource(R.xml.mi3td_preferences);
+        }
+
+        @Override
+        public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+            switch (s) {
+                case "persist.audio.vns.mode":
+                    String value = sharedPreferences.getString(s, "2");
+                    try {
+                        Helper.set(s, value);
+                    } catch (IOException ignored) {
+                        ignored.printStackTrace();
+                    }
+                    break;
             }
         }
 
-        static void set(int val) {//更改MicMode值
-            try {
-                switch (val) {
-                    case 1:
-                        Helper.set("persist.audio.vns.mode", String.valueOf(val));
-                        break;
-                    case 2:
-                        Helper.set("persist.audio.vns.mode", String.valueOf(val));
-                        break;
-                    default:
-                        throw new NumberFormatException();
-                }
-            } catch (IOException exception) {
-                exception.printStackTrace();
-            }
+        @Override
+        public void onResume() {
+            super.onResume();
+            getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
+
+        }
+
+        @Override
+        public void onPause() {
+            getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+            super.onPause();
         }
     }
-
-    //=======================MicMode=======================
 }
 
