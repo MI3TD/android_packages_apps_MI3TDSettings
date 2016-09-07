@@ -1,13 +1,13 @@
 package net.tonyliu.mi3setting;
 
 import android.os.Bundle;
-import android.os.SystemProperties;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
 
 import java.io.IOException;
 
