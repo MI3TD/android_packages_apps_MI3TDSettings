@@ -43,14 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
         private static final String KEY_VERSION = "version";
 
-        private Context context_;
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            context_ = activity.getApplicationContext();
-        }
-
         @Override
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -64,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
             String versionName;
             try {
-                versionName = context_.getPackageManager().getPackageInfo(context_.getPackageName(), 0).versionName;
+                versionName = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0).versionName;
             }  catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
                 versionName = "Error";
