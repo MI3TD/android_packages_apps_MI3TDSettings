@@ -15,7 +15,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/cellular_network">
+        android:title="@string/category_cellular_network">
 
         <net.tonyliu.mi3setting.BasebandResetPreference
             android:icon="@drawable/ic_sim_card"
@@ -24,5 +24,18 @@
             android:summary="@string/baseband_reset_summary"
             android:dialogMessage="@string/baseband_reset_confirmmessage"
             />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/category_about">
+
+        <Preference
+            android:key="version"
+            android:icon="@drawable/ic_info"
+            style="?android:preferenceInformationStyle"
+            android:title="@string/version"
+            android:summary="x.x"
+            />
+
     </PreferenceCategory>
 </PreferenceScreen>

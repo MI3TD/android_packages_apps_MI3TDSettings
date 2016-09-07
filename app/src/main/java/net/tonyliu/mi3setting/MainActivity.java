@@ -1,10 +1,13 @@
 package net.tonyliu.mi3setting;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.preference.PreferenceManager;
 import android.preference.PreferenceFragment;
 
 import java.io.IOException;
@@ -38,6 +41,16 @@ public class MainActivity extends AppCompatActivity {
     public static class MI3TDPreferences extends PreferenceFragment
             implements OnSharedPreferenceChangeListener  {
 
+        private static final String KEY_VERSION = "version";
+
+        private Context context_;
+
+        @Override
+        public void onAttach(Activity activity) {
+            super.onAttach(activity);
+            context_ = activity.getApplicationContext();
+        }
+
         @Override
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -48,6 +61,15 @@ public class MainActivity extends AppCompatActivity {
                     .apply();
 
             addPreferencesFromResource(R.xml.mi3td_preferences);
+
+            String versionName;
+            try {
+                versionName = context_.getPackageManager().getPackageInfo(context_.getPackageName(), 0).versionName;
+            }  catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+                versionName = "Error";
+            }
+            findPreference(KEY_VERSION).setSummary(versionName);
         }
 
         @Override
