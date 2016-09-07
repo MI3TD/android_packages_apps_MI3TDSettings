@@ -6,7 +6,7 @@
 
         <ListPreference
             android:defaultValue="false"
-            android:icon="@drawable/ic_settings_voice"
+            android:icon="@drawable/ic_phone_in_talk"
             android:title="@string/cnr"
             android:summary="%s"
             android:entries="@array/cnr_titles"
@@ -18,7 +18,7 @@
         android:title="@string/cellular_network">
 
         <net.tonyliu.mi3setting.BasebandResetPreference
-            android:icon="@drawable/ic_settings_phone"
+            android:icon="@drawable/ic_sim_card"
             android:title="@string/baseband_reset"
             android:dialogIcon="@drawable/ic_warning"
             android:summary="@string/baseband_reset_summary"
