@@ -1,7 +1,5 @@
 package net.tonyliu.mi3setting;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageManager;
@@ -14,6 +12,7 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
 
     private static final String PERSIST_ANR = "persist.audio.vns.mode";
+    private static final String PERSIST_FORCE_FAST_CHARGE = "persist.force_fast_charge";
 
     public MainActivity() {
         super();
@@ -39,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static class MI3TDPreferences extends PreferenceFragment
-            implements OnSharedPreferenceChangeListener  {
+            implements OnSharedPreferenceChangeListener {
 
         private static final String KEY_VERSION = "version";
 
@@ -50,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences preferences = getPreferenceManager().getSharedPreferences();
             preferences.edit()
                     .putString(PERSIST_ANR, Helper.get(PERSIST_ANR))
+                    .putBoolean(PERSIST_FORCE_FAST_CHARGE, Helper.get(PERSIST_FORCE_FAST_CHARGE, false))
                     .apply();
 
             addPreferencesFromResource(R.xml.mi3td_preferences);
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             String versionName;
             try {
                 versionName = getActivity().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0).versionName;
-            }  catch (PackageManager.NameNotFoundException e) {
+            } catch (PackageManager.NameNotFoundException e) {
                 e.printStackTrace();
                 versionName = "Error";
             }
@@ -75,6 +75,15 @@ public class MainActivity extends AppCompatActivity {
                         ignored.printStackTrace();
                     }
                     break;
+
+                case PERSIST_FORCE_FAST_CHARGE:
+                    boolean forceFastCharge = sharedPreferences.getBoolean(s, false);
+                    try {
+                        Helper.set(s, forceFastCharge ? "1" : "0");
+                    } catch (IOException ignored) {
+                        ignored.printStackTrace();
+                    }
+                    break;
             }
         }
 
@@ -82,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
         public void onResume() {
             super.onResume();
             getPreferenceManager().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
-
         }
 
         @Override

@@ -7,6 +7,8 @@
     <string name="baseband_reset_summary">Reset radio baseband to redetect SIM card</string>
     <string name="baseband_resetting">Resetting baseband ...</string>
 
+    <string name="category_about">About</string>
+    <string name="category_battery">Battery</string>
     <string name="category_cellular_network">Cellular networks</string>
     <string name="category_sounds">Sounds</string>
 
@@ -14,7 +16,12 @@
     <string name="cnr_dual">Use dual MIC</string>
     <string name="cnr_single">Use single MIC</string>
 
+    <string name="force_fast_charge">Force Fast Charge</string>
+    <string name="force_fast_charge_confirmmessage">Enableing this feature will ignore USB Adapter Type Detection and lift max charging current up to 2100mA.\nActual charging current is still limited to your AC adapter.\n\nAny damage cause by this feature is at your own risk.</string>
+    <string name="force_fast_charge_current">Max charging current: %dmA</string>
+    <string name="force_fast_charge_unplugged">Unplugged</string>
+
     <string name="root_failed">su failed, please grant root permission</string>
-    <string name="category_about">About</string>
+
     <string name="version">Version</string>
 </resources>
