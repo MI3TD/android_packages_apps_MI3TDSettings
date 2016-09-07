@@ -13,16 +13,18 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String PERSIST_ANR = "persist.audio.vns.mode";
+
     public MainActivity() {
         super();
 
-        switch (Helper.get("persist.audio.vns.mode")) {
+        switch (Helper.get(PERSIST_ANR)) {
             case "1":
             case "2":
                 break;
             default:
                 try {
-                    Helper.set("persist.audio.vns.mode", "2");
+                    Helper.set(PERSIST_ANR, "2");
                 } catch (IOException ignored) {
                     ignored.printStackTrace();
                 }
@@ -55,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
             SharedPreferences preferences = getPreferenceManager().getSharedPreferences();
             preferences.edit()
-                    .putString("persist.audio.vns.mode", Helper.get("persist.audio.vns.mode"))
+                    .putString(PERSIST_ANR, Helper.get(PERSIST_ANR))
                     .apply();
 
             addPreferencesFromResource(R.xml.mi3td_preferences);
@@ -73,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
             switch (s) {
-                case "persist.audio.vns.mode":
+                case PERSIST_ANR:
                     String value = sharedPreferences.getString(s, "2");
                     try {
                         Helper.set(s, value);
