@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
             SharedPreferences preferences = getPreferenceManager().getSharedPreferences();
             preferences.edit()
-                    .putString(PERSIST_ANR, Helper.get(PERSIST_ANR))
+                    .putString(PERSIST_ANR, Helper.get(PERSIST_ANR) == "1" ? "1" : "2")
                     .putBoolean(PERSIST_FORCE_FAST_CHARGE, Helper.get(PERSIST_FORCE_FAST_CHARGE, false))
                     .apply();
 
