@@ -1,28 +1,20 @@
 package net.tonyliu.mi3setting;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
+import android.os.BatteryManager;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.Preference;
 import android.preference.SwitchPreference;
 import android.support.v7.app.AlertDialog;
 import android.util.AttributeSet;
-import android.os.BatteryManager;
 
 public class ForceFastChargePreference extends SwitchPreference {
 
     private static final String PERSIST_FORCE_FAST_CHARGE = "persist.force_fast_charge";
 
-    // copied from android.os.BatteryManager.EXTRA_MAX_CHARGING_CURRENT;
-    private static final String EXTRA_MAX_CHARGING_CURRENT = "max_charging_current";
-
     private static final int MSG_BATTERY_UPDATE = 302;
-
-    private Context context_;
 
     private class BatteryStatus {
         public final int plugged;
@@ -34,15 +26,13 @@ public class ForceFastChargePreference extends SwitchPreference {
     }
     private BatteryStatus batteryStatus_;
 
+    private Context context_;
+
     public ForceFastChargePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
+
         context_ = context;
-
         batteryStatus_ = new BatteryStatus(BatteryManager.BATTERY_STATUS_UNKNOWN, 0);
-
-        final IntentFilter filter = new IntentFilter();
-        filter.addAction(Intent.ACTION_BATTERY_CHANGED);
-        context.registerReceiver(broadcastReceiver_, filter);
 
         setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             @Override
@@ -59,7 +49,7 @@ public class ForceFastChargePreference extends SwitchPreference {
                                 getEditor()
                                         .putBoolean(PERSIST_FORCE_FAST_CHARGE, true)
                                         .apply();
-                                refreshChargingStatus();
+                                updateChargingStatus();
                             }
                         })
                         .setNegativeButton(android.R.string.no, null)
@@ -72,7 +62,7 @@ public class ForceFastChargePreference extends SwitchPreference {
         });
     }
 
-    public void refreshChargingStatus() {
+    private void updateChargingStatus() {
         if (batteryStatus_.plugged == 0) {
             setSummary(context_.getString(R.string.force_fast_charge_unplugged));
         }
@@ -87,24 +77,15 @@ public class ForceFastChargePreference extends SwitchPreference {
             switch (msg.what) {
                 case MSG_BATTERY_UPDATE:
                     batteryStatus_ = (BatteryStatus) msg.obj;
-                    refreshChargingStatus();
+                    updateChargingStatus();
                     break;
             }
         }
     };
 
-    private final BroadcastReceiver broadcastReceiver_ = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            final String action = intent.getAction();
-
-            if (Intent.ACTION_BATTERY_CHANGED.equals(action)) {
-                final int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
-                final int maxChargingCurrent = intent.getIntExtra(EXTRA_MAX_CHARGING_CURRENT, -1);
-                final Message msg = handler_.obtainMessage(MSG_BATTERY_UPDATE, new BatteryStatus(plugged, maxChargingCurrent));
-                handler_.sendMessage(msg);
-            }
-        }
-    };
+	public void updateChargingStatus(int plugged, int maxChargingCurrent) {
+		final Message msg = handler_.obtainMessage(MSG_BATTERY_UPDATE, new BatteryStatus(plugged, maxChargingCurrent));
+		handler_.sendMessage(msg);
+	}
 }
 

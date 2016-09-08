@@ -1,8 +1,13 @@
 package net.tonyliu.mi3setting;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageManager;
+import android.os.BatteryManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.preference.PreferenceFragment;
@@ -13,6 +18,12 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String PERSIST_ANR = "persist.audio.vns.mode";
     private static final String PERSIST_FORCE_FAST_CHARGE = "persist.force_fast_charge";
+
+    private MI3TDPreferences mi3TDPreferences_;
+    private ForceFastChargePreference forceFastChargePreference_;
+
+    // copied from android.os.BatteryManager.EXTRA_MAX_CHARGING_CURRENT;
+    private static final String EXTRA_MAX_CHARGING_CURRENT = "max_charging_current";
 
     public MainActivity() {
         super();
@@ -34,8 +45,46 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getFragmentManager().beginTransaction().replace(android.R.id.content, new MI3TDPreferences()).commit();
+        mi3TDPreferences_ = new MI3TDPreferences();
+        getFragmentManager().beginTransaction().replace(android.R.id.content, mi3TDPreferences_).commit();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(broadcastReceiver_, batteryIntentFilter_);
+    }
+
+    @Override
+    protected void onPause() {
+        unregisterReceiver(broadcastReceiver_);
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        forceFastChargePreference_ = null;
+        super.onDestroy();
+    }
+
+    private final IntentFilter batteryIntentFilter_ = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+
+    private final BroadcastReceiver broadcastReceiver_ = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            final String action = intent.getAction();
+
+            if (Intent.ACTION_BATTERY_CHANGED.equals(action)) {
+                final int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
+                final int maxChargingCurrent = intent.getIntExtra(EXTRA_MAX_CHARGING_CURRENT, -1);
+
+                if (forceFastChargePreference_ == null) {
+                    forceFastChargePreference_ = (ForceFastChargePreference) mi3TDPreferences_.findPreference(PERSIST_FORCE_FAST_CHARGE);
+                }
+                forceFastChargePreference_.updateChargingStatus(plugged, maxChargingCurrent);
+            }
+        }
+    };
 
     public static class MI3TDPreferences extends PreferenceFragment
             implements OnSharedPreferenceChangeListener {
