@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+    <string name="alipay_donate">加油</string>
+    <string name="alipay_donate_confirmmessage">任意额度都接受。\n确认要通过支付宝付款吗？</string>
+    <string name="alipay_donate_fail">无法支付宝失败。\n请确保支付宝已经安装并且没有被阻止运行。</string>
+    <string name="alipay_donate_summary">为作者加油。因为 MI3TD 是最难移植的设备。</string>
+
     <string name="app_name">MI3 TD 附加设置</string>
 
     <string name="baseband_reset">重启基带</string>

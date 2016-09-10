@@ -39,10 +39,17 @@
     <PreferenceCategory
         android:title="@string/category_about">
 
+        <net.tonyliu.mi3setting.AlipayDonate
+            android:icon="@drawable/ic_gas_station"
+            android:title="@string/alipay_donate"
+            android:dialogIcon="@drawable/ic_info"
+            android:summary="@string/alipay_donate_summary"
+            android:dialogMessage="@string/alipay_donate_confirmmessage"
+            />
+
         <Preference
             android:key="version"
             android:icon="@drawable/ic_info"
-            style="?android:preferenceInformationStyle"
             android:title="@string/version"
             android:summary="x.x"
             />

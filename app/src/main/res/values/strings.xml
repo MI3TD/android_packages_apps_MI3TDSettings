@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+    <string name="alipay_donate">Donate</string>
+    <string name="alipay_donate_code">apb3f3prsa5plage0a</string>
+    <string name="alipay_donate_confirmmessage">Any amount is accepted.\nAre you sure to pay using AliPay?</string>
+    <string name="alipay_donate_fail">Failed opening AliPay.\nMake sure it\'s installed and not blocked from auto start.</string>
+    <string name="alipay_donate_summary">Cheers to the author</string>
+
     <string name="app_name">MI3 TD Extra Settings</string>
 
     <string name="baseband_reset">Reset Baseband</string>
