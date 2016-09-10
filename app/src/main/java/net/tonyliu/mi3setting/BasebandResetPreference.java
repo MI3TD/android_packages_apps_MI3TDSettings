@@ -7,11 +7,9 @@ import android.util.AttributeSet;
 import android.preference.DialogPreference;
 
 public class BasebandResetPreference extends DialogPreference {
-    private Context context_;
 
     public BasebandResetPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-        context_ = context;
     }
 
     @Override
@@ -20,10 +18,10 @@ public class BasebandResetPreference extends DialogPreference {
 
         if (positiveResult) {
             if (Helper.writeLine("/sys/class/spi_master/spi0/spi0.0/reset", "1")) {
-                Toast toast = Toast.makeText(context_, context_.getString(R.string.baseband_resetting), Toast.LENGTH_LONG);
+                Toast toast = Toast.makeText(getContext(), getContext().getString(R.string.baseband_resetting), Toast.LENGTH_LONG);
                 toast.show();
             } else {
-                Helper.showRootFail(context_);
+                Helper.showRootFail(getContext());
             }
         }
     }

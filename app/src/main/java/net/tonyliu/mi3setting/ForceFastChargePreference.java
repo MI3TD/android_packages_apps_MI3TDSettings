@@ -26,12 +26,9 @@ public class ForceFastChargePreference extends SwitchPreference {
     }
     private BatteryStatus batteryStatus_;
 
-    private Context context_;
-
     public ForceFastChargePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        context_ = context;
         batteryStatus_ = new BatteryStatus(BatteryManager.BATTERY_STATUS_UNKNOWN, 0);
 
         setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
@@ -41,7 +38,7 @@ public class ForceFastChargePreference extends SwitchPreference {
                     return true;
                 }
 
-                new AlertDialog.Builder(context_)
+                new AlertDialog.Builder(getContext())
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -64,10 +61,10 @@ public class ForceFastChargePreference extends SwitchPreference {
 
     private void updateChargingStatus() {
         if (batteryStatus_.plugged == 0) {
-            setSummary(context_.getString(R.string.force_fast_charge_unplugged));
+            setSummary(getContext().getString(R.string.force_fast_charge_unplugged));
         }
         else {
-            setSummary(String.format(context_.getString(R.string.force_fast_charge_current), batteryStatus_.maxChargingCurrent / 1000));
+            setSummary(String.format(getContext().getString(R.string.force_fast_charge_current), batteryStatus_.maxChargingCurrent / 1000));
         }
     }
 
