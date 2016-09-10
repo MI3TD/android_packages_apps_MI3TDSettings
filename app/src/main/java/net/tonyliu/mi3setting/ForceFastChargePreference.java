@@ -17,9 +17,9 @@ public class ForceFastChargePreference extends SwitchPreference {
     private static final int MSG_BATTERY_UPDATE = 302;
 
     private class BatteryStatus {
-        public final int plugged;
-        public final int maxChargingCurrent;
-        public BatteryStatus(int plugged, int maxChargingCurrent) {
+        final int plugged;
+        final int maxChargingCurrent;
+        BatteryStatus(int plugged, int maxChargingCurrent) {
             this.plugged = plugged;
             this.maxChargingCurrent = maxChargingCurrent;
         }
@@ -83,7 +83,7 @@ public class ForceFastChargePreference extends SwitchPreference {
         }
     };
 
-	public void updateChargingStatus(int plugged, int maxChargingCurrent) {
+	void updateChargingStatus(int plugged, int maxChargingCurrent) {
 		final Message msg = handler_.obtainMessage(MSG_BATTERY_UPDATE, new BatteryStatus(plugged, maxChargingCurrent));
 		handler_.sendMessage(msg);
 	}
