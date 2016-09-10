@@ -11,6 +11,7 @@ import android.os.BatteryManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.preference.PreferenceFragment;
+import android.view.MenuItem;
 
 import java.io.IOException;
 
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         mi3TDPreferences_ = new MI3TDPreferences();
         getFragmentManager().beginTransaction().replace(android.R.id.content, mi3TDPreferences_).commit();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -65,6 +67,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         forceFastChargePreference_ = null;
         super.onDestroy();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private final IntentFilter batteryIntentFilter_ = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
