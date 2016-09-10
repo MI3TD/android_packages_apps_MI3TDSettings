@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
 
         mi3TDPreferences_ = new MI3TDPreferences();
         getFragmentManager().beginTransaction().replace(android.R.id.content, mi3TDPreferences_).commit();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
