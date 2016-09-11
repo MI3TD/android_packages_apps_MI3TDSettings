@@ -7,8 +7,8 @@ android {
         applicationId "net.tonyliu.mi3setting"
         minSdkVersion 19
         targetSdkVersion 24
-        versionCode 2
-        versionName '1.4'
+        versionCode 23
+        versionName '6.0.1'
     }
     buildTypes {
         release {
