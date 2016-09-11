@@ -32,6 +32,12 @@
     <string name="link_forum">http://bbs.zhiyoo.com/thread-12516340-1-1.html</string>
     <string name="link_forum_text">Forum</string>
     <string name="link_project_home">https://github.com/MI3TD</string>
+    <string name="link_qqgroup_closed">mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26k%3DQ9fUX3-5b7S3Xsk0aCOCj6kKgxp7l2mf</string>
+    <string name="link_qqgroup_closed_summary">Closed group, require donation to join</string>
+    <string name="link_qqgroup_closed_text">Join QQ test group</string>
+    <string name="link_qqgroup_open">mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26k%3DPVDWYWk1-aLqKJTjTXC6CadLdRubeEy4</string>
+    <string name="link_qqgroup_open_summary">Welcome anyone to join</string>
+    <string name="link_qqgroup_open_text">Join QQ open group</string>
     <string name="link_weibo">http://weibo.com/xuefer</string>
     <string name="link_weibo_text">Weibo</string>
 

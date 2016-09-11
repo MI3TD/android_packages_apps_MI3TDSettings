@@ -70,6 +70,22 @@
             />
 
         <Preference
+            android:icon="@drawable/ic_group_add"
+            android:title="@string/link_qqgroup_open_text"
+            android:summary="@string/link_qqgroup_open_summary"
+            >
+            <intent android:data="@string/link_qqgroup_open" />
+        </Preference>
+
+        <Preference
+            android:icon="@drawable/ic_group_add"
+            android:title="@string/link_qqgroup_closed_text"
+            android:summary="@string/link_qqgroup_closed_summary"
+            >
+            <intent android:data="@string/link_qqgroup_closed" />
+        </Preference>
+
+        <Preference
             android:key="version"
             android:icon="@drawable/ic_info"
             android:title="@string/version"
