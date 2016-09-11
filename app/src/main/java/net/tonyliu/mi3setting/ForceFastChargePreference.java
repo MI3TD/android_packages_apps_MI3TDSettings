@@ -2,6 +2,7 @@ package net.tonyliu.mi3setting;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.BatteryManager;
 import android.os.Handler;
 import android.os.Message;
@@ -14,12 +15,16 @@ public class ForceFastChargePreference extends SwitchPreference {
 
     private static final String PERSIST_FORCE_FAST_CHARGE = "persist.force_fast_charge";
 
+    // copied from android.os.BatteryManager.EXTRA_MAX_CHARGING_CURRENT;
+    private static final String EXTRA_MAX_CHARGING_CURRENT = "max_charging_current";
+    private static final String BATTERY_CURRENT_PATH = "/sys/class/power_supply/max170xx_battery/current_now";
+
     private static final int MSG_BATTERY_UPDATE = 302;
 
     private class BatteryStatus {
-        final int plugged;
+        final boolean plugged;
         final int maxChargingCurrent;
-        BatteryStatus(int plugged, int maxChargingCurrent) {
+        BatteryStatus(boolean plugged, int maxChargingCurrent) {
             this.plugged = plugged;
             this.maxChargingCurrent = maxChargingCurrent;
         }
@@ -29,7 +34,7 @@ public class ForceFastChargePreference extends SwitchPreference {
     public ForceFastChargePreference(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        batteryStatus_ = new BatteryStatus(BatteryManager.BATTERY_STATUS_UNKNOWN, 0);
+        batteryStatus_ = new BatteryStatus(false, 0);
 
         setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             @Override
@@ -59,12 +64,19 @@ public class ForceFastChargePreference extends SwitchPreference {
         });
     }
 
-    private void updateChargingStatus() {
-        if (batteryStatus_.plugged == 0) {
+    void updateChargingStatus() {
+        String s = Helper.readOneLine(BATTERY_CURRENT_PATH);
+        final int batteryCurrent = s == null ? -1 : Integer.parseInt(s);
+
+        if (!batteryStatus_.plugged) {
             setSummary(getContext().getString(R.string.force_fast_charge_unplugged));
         }
         else {
-            setSummary(String.format(getContext().getString(R.string.force_fast_charge_current), batteryStatus_.maxChargingCurrent / 1000));
+            setSummary(getContext().getString(
+                    R.string.force_fast_charge_current,
+                    batteryCurrent / 1000,
+                    batteryStatus_.maxChargingCurrent / 1000)
+            );
         }
     }
 
@@ -80,8 +92,14 @@ public class ForceFastChargePreference extends SwitchPreference {
         }
     };
 
-	void updateChargingStatus(int plugged, int maxChargingCurrent) {
-		final Message msg = handler_.obtainMessage(MSG_BATTERY_UPDATE, new BatteryStatus(plugged, maxChargingCurrent));
+	void updateChargingStatus(Intent intent) {
+        final boolean plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0) != 0;
+        final int maxChargingCurrent = intent.getIntExtra(EXTRA_MAX_CHARGING_CURRENT, -1);
+
+		final Message msg = handler_.obtainMessage(
+                MSG_BATTERY_UPDATE,
+                new BatteryStatus(plugged, maxChargingCurrent)
+        );
 		handler_.sendMessage(msg);
 	}
 }

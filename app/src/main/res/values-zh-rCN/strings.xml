@@ -25,7 +25,7 @@
 
     <string name="force_fast_charge">强制快充识别</string>
     <string name="force_fast_charge_confirmmessage">启用本功能将会忽略 USB 充电头识别, 并提高最大充电电流到 2100mA。\n实际充电电流依然受限于您的充电头/充电线能力。\n\n由此造成的损坏后果自负。</string>
-    <string name="force_fast_charge_current">最大充电电流: %dmA</string>
+    <string name="force_fast_charge_current">充电电流：%1$dmA（最大 %2$dmA）</string>
     <string name="force_fast_charge_unplugged">未插入</string>
 
     <string name="link_forum_text">论坛</string>

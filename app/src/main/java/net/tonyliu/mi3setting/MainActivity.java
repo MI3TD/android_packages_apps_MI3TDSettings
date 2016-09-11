@@ -9,6 +9,7 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageManager;
 import android.os.BatteryManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.preference.PreferenceFragment;
 import android.view.MenuItem;
@@ -22,9 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
     private MI3TDPreferences mi3TDPreferences_;
     private ForceFastChargePreference forceFastChargePreference_;
-
-    // copied from android.os.BatteryManager.EXTRA_MAX_CHARGING_CURRENT;
-    private static final String EXTRA_MAX_CHARGING_CURRENT = "max_charging_current";
 
     public MainActivity() {
         super();
@@ -53,12 +51,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         registerReceiver(broadcastReceiver_, batteryIntentFilter_);
+        updateChargingStatusHandler_.postDelayed(updateChargingStatus_, 0);
     }
 
     @Override
     protected void onPause() {
+        updateChargingStatusHandler_.removeCallbacks(updateChargingStatus_);
         unregisterReceiver(broadcastReceiver_);
+
         super.onPause();
     }
 
@@ -87,13 +89,31 @@ public class MainActivity extends AppCompatActivity {
             final String action = intent.getAction();
 
             if (Intent.ACTION_BATTERY_CHANGED.equals(action)) {
-                final int plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
-                final int maxChargingCurrent = intent.getIntExtra(EXTRA_MAX_CHARGING_CURRENT, -1);
-
                 if (forceFastChargePreference_ == null) {
                     forceFastChargePreference_ = (ForceFastChargePreference) mi3TDPreferences_.findPreference(PERSIST_FORCE_FAST_CHARGE);
                 }
-                forceFastChargePreference_.updateChargingStatus(plugged, maxChargingCurrent);
+                forceFastChargePreference_.updateChargingStatus(intent);
+
+                final boolean plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0) != 0;
+                updateChargingStatusHandler_.removeCallbacks(updateChargingStatus_);
+                if (plugged) {
+                    updateChargingStatusHandler_.postDelayed(updateChargingStatus_, 2000);
+                }
+            }
+        }
+    };
+
+    private final Handler updateChargingStatusHandler_ = new Handler();
+    private final Runnable updateChargingStatus_ = new Runnable(){
+        public void run() {
+            try {
+                if (forceFastChargePreference_ != null) {
+                    forceFastChargePreference_.updateChargingStatus();
+                }
+                updateChargingStatusHandler_.postDelayed(updateChargingStatus_, 1000);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
             }
         }
     };
