@@ -29,7 +29,15 @@
     <string name="force_fast_charge_current">Max charging current: %dmA</string>
     <string name="force_fast_charge_unplugged">Unplugged</string>
 
+    <string name="link_forum">http://bbs.zhiyoo.com/thread-12516340-1-1.html</string>
+    <string name="link_forum_text">Forum</string>
+    <string name="link_project_home">https://github.com/MI3TD</string>
+    <string name="link_weibo">http://weibo.com/xuefer</string>
+    <string name="link_weibo_text">Weibo</string>
+
     <string name="root_failed">su failed, please grant root permission</string>
+
+    <string name="summary_thumbs_up">Thumbs up</string>
 
     <string name="version">Version</string>
 </resources>
