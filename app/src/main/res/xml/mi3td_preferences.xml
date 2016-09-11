@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/net.tonyliu.mi3setting"
+    >
 
     <PreferenceCategory
         android:title="@string/category_sounds">
@@ -40,6 +43,7 @@
         android:title="@string/category_about">
 
         <net.tonyliu.mi3setting.AlipayDonate
+            app:code="@string/alipay_donate_code"
             android:icon="@drawable/ic_gas_station"
             android:title="@string/alipay_donate"
             android:dialogIcon="@drawable/ic_info"

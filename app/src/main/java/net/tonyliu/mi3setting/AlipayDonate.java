@@ -3,6 +3,7 @@ package net.tonyliu.mi3setting;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.widget.Toast;
@@ -10,8 +11,21 @@ import android.widget.Toast;
 import java.net.URISyntaxException;
 
 public class AlipayDonate extends DialogPreference {
+    private final String code_;
+
     public AlipayDonate(Context context, AttributeSet attrs) {
         super(context, attrs);
+
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.AlipayDonate, 0, 0);
+        try {
+            code_ = a.getString(R.styleable.AlipayDonate_code);
+
+            if (code_ == null) {
+                throw new IllegalArgumentException("AlipayDonate: error - code is not specified");
+            }
+        } finally {
+            a.recycle();
+        }
     }
 
     @Override
@@ -21,7 +35,7 @@ public class AlipayDonate extends DialogPreference {
         if (positiveResult) {
             Context context = getContext();
             try {
-                AlipayZeroSdk.startAlipayClient(context, context.getString(R.string.alipay_donate_code));
+                AlipayZeroSdk.startAlipayClient(context, code_);
             } catch (ActivityNotFoundException e) {
                 e.printStackTrace();
                 Toast toast = Toast.makeText(context, context.getString(R.string.alipay_donate_fail), Toast.LENGTH_LONG);
