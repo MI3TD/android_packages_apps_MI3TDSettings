@@ -94,11 +94,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 forceFastChargePreference_.updateChargingStatus(intent);
 
-                final boolean plugged = intent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0) != 0;
                 updateChargingStatusHandler_.removeCallbacks(updateChargingStatus_);
-                if (plugged) {
-                    updateChargingStatusHandler_.postDelayed(updateChargingStatus_, 2000);
-                }
+                updateChargingStatusHandler_.postDelayed(updateChargingStatus_, 2000);
             }
         }
     };

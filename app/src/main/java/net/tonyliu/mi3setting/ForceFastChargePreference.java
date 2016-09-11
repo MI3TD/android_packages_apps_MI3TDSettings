@@ -68,15 +68,17 @@ public class ForceFastChargePreference extends SwitchPreference {
         String s = Helper.readOneLine(BATTERY_CURRENT_PATH);
         final int batteryCurrent = s == null ? -1 : Integer.parseInt(s);
 
-        if (!batteryStatus_.plugged) {
-            setSummary(getContext().getString(R.string.force_fast_charge_unplugged));
+        if (batteryStatus_.plugged) {
+            setSummary(getContext().getString(
+                    R.string.force_fast_charge_charging,
+                    batteryCurrent / 1000, batteryStatus_.maxChargingCurrent / 1000
+            ));
         }
         else {
             setSummary(getContext().getString(
-                    R.string.force_fast_charge_current,
-                    batteryCurrent / 1000,
-                    batteryStatus_.maxChargingCurrent / 1000)
-            );
+                    R.string.force_fast_charge_discharging,
+                    batteryCurrent / 1000
+            ));
         }
     }
 

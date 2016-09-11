@@ -35,7 +35,7 @@
             android:key="persist.force_fast_charge"
             android:icon="@drawable/ic_battery"
             android:title="@string/force_fast_charge"
-            android:summary="@string/force_fast_charge_current"
+            android:summary="x.x"
             />
     </PreferenceCategory>
 
