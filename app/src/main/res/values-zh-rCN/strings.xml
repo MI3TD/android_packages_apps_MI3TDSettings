@@ -40,4 +40,6 @@
     <string name="summary_thumbs_up">赞！</string>
 
     <string name="version">版本</string>
+    <string name="ril_auto_reset_text">自动重置基带</string>
+    <string name="ril_auto_reset_summary">开机完成后自动判断并重置基带</string>
 </resources>

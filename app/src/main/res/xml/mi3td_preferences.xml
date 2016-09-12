@@ -26,6 +26,13 @@
             android:summary="@string/baseband_reset_summary"
             android:dialogMessage="@string/baseband_reset_confirmmessage"
             />
+
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="ril_auto_rest"
+            android:title="@string/ril_auto_reset_text"
+            android:summary="@string/ril_auto_reset_summary"
+            />
     </PreferenceCategory>
 
     <PreferenceCategory
