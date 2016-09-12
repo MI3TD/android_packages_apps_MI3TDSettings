@@ -16,6 +16,7 @@
     <string name="category_about">About</string>
     <string name="category_battery">Battery</string>
     <string name="category_cellular_network">Cellular networks</string>
+    <string name="category_gps">GPS</string>
     <string name="category_sounds">Sounds</string>
 
     <string name="cnr">Call Noise Reduction</string>
@@ -28,6 +29,10 @@
     <string name="force_fast_charge_charging">Current: %1$dmA (%2$dmA MAX)</string>
     <string name="force_fast_charge_confirmmessage">Enableing this feature will ignore USB Adapter Type Detection and lift max charging current up to 2100mA.\nActual charging current is still limited to your AC adapter.\n\nAny damage cause by this feature is at your own risk.</string>
     <string name="force_fast_charge_discharging">Current: %1$dmA (Discharging)</string>
+
+    <string name="gps_workaround_executed">GPS workaround kicked in</string>
+    <string name="gps_workaround_summary">Fix GPS startup issue</string>
+    <string name="gps_workaround_title">GPS workaround</string>
 
     <string name="link_forum">http://bbs.zhiyoo.com/thread-12516340-1-1.html</string>
     <string name="link_forum_text">Forum</string>

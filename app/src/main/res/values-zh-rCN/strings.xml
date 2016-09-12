@@ -15,6 +15,7 @@
     <string name="category_about">关于</string>
     <string name="category_battery">电池</string>
     <string name="category_cellular_network">移动网络</string>
+    <string name="category_gps">GPS</string>
     <string name="category_sounds">声音</string>
 
     <string name="cnr">通话降噪</string>
@@ -28,6 +29,10 @@
     <string name="force_fast_charge_confirmmessage">启用本功能将会忽略 USB 充电头识别, 并提高最大充电电流到 2100mA。\n实际充电电流依然受限于您的充电头/充电线能力。\n\n由此造成的损坏后果自负。</string>
     <string name="force_fast_charge_discharging">电流：%1$dmA（放电中）</string>
 
+    <string name="gps_workaround_executed">已执行 GPS 修复</string>
+    <string name="gps_workaround_summary">解决 GPS 冷启动问题</string>
+    <string name="gps_workaround_title">GPS 修复</string>
+
     <string name="link_forum_text">论坛</string>
     <string name="link_qqgroup_closed_summary">封闭群, 需要捐赠后才能加入</string>
     <string name="link_qqgroup_closed_text">加入内测组</string>
@@ -35,11 +40,12 @@
     <string name="link_qqgroup_open_text">加入交流群</string>
     <string name="link_weibo_text">微博</string>
 
+    <string name="ril_auto_reset_summary">开机完成后自动判断并重置基带</string>
+    <string name="ril_auto_reset_text">自动重置基带</string>
+
     <string name="root_failed">无法获取 su 权限，注意授权</string>
 
     <string name="summary_thumbs_up">赞！</string>
 
     <string name="version">版本</string>
-    <string name="ril_auto_reset_text">自动重置基带</string>
-    <string name="ril_auto_reset_summary">开机完成后自动判断并重置基带</string>
 </resources>

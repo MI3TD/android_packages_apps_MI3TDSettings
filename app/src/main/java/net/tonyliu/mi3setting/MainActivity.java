@@ -1,5 +1,6 @@
 package net.tonyliu.mi3setting;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -7,8 +8,10 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.SwitchPreference;
 import android.support.v7.app.AppCompatActivity;
 import android.preference.PreferenceFragment;
 import android.view.MenuItem;
@@ -19,6 +22,13 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String PERSIST_ANR = "persist.audio.vns.mode";
     private static final String PERSIST_FORCE_FAST_CHARGE = "persist.force_fast_charge";
+    private static final String KEY_GPS_WORKAROUND = "gps_workaround";
+
+    private static final String[] LOCATION_PERMS = {
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS
+    };
+    private static final int LOCATION_REQUEST = 1337;
 
     private MI3TDPreferences mi3TDPreferences_;
     private ForceFastChargePreference forceFastChargePreference_;
@@ -121,6 +131,14 @@ public class MainActivity extends AppCompatActivity {
 
         private static final String KEY_VERSION = "version";
 
+        Context context_;
+
+        @Override
+        public void onAttach(Context context) {
+            context_ = context;
+            super.onAttach(context);
+        }
+
         @Override
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -141,6 +159,10 @@ public class MainActivity extends AppCompatActivity {
                 versionName = "Error";
             }
             findPreference(KEY_VERSION).setSummary(versionName);
+
+            if (preferences.getBoolean(KEY_GPS_WORKAROUND, true)) {
+                startGpsFixService();
+            }
         }
 
         @Override
@@ -163,6 +185,15 @@ public class MainActivity extends AppCompatActivity {
                         ignored.printStackTrace();
                     }
                     break;
+
+                case KEY_GPS_WORKAROUND:
+                    boolean gpsWorkaround = sharedPreferences.getBoolean(s, false);
+                    if (gpsWorkaround) {
+                        startGpsFixService();
+                    } else {
+                        context_.stopService(new Intent(context_, GpsFixer.class));
+                    }
+                    break;
             }
         }
 
@@ -176,6 +207,29 @@ public class MainActivity extends AppCompatActivity {
         public void onPause() {
             getPreferenceManager().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
             super.onPause();
+        }
+
+        private void startGpsFixService() {
+            if (Helper.hasPermission(context_, LOCATION_PERMS)) {
+                context_.startService(new Intent(context_, GpsFixer.class));
+            }
+            else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(LOCATION_PERMS, LOCATION_REQUEST);
+            }
+        }
+
+        @Override
+        public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+            switch (requestCode) {
+                case LOCATION_REQUEST:
+                    if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                        context_.startService(new Intent(context_, GpsFixer.class));
+                    }
+                    else {
+                        ((SwitchPreference) findPreference(KEY_GPS_WORKAROUND)).setChecked(false);
+                    }
+                    break;
+            }
         }
     }
 }

@@ -2,14 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.tonyliu.mi3setting">
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -36,6 +38,7 @@
         </activity>
 
         <service android:name=".BasebandAutoResetter" />
+        <service android:name=".GpsFixer" />
 
         <receiver android:name=".BootCompletedReceiver" >
             <intent-filter>

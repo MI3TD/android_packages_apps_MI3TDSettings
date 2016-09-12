@@ -1,5 +1,7 @@
 package net.tonyliu.mi3setting;
 
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.SystemProperties;
 import android.widget.Toast;
 import android.content.Context;
@@ -119,5 +121,23 @@ public class Helper {
         } else {
             showRootFail(context);
         }
+    }
+
+    public static boolean hasPermission(Context context, String[] perms) {
+        for (String perm : perms) {
+            if (!hasPermission(context, perm)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public static boolean hasPermission(Context context, String perm) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return context.checkSelfPermission(perm) == PackageManager.PERMISSION_GRANTED;
+        }
+
+        return true;
     }
 }

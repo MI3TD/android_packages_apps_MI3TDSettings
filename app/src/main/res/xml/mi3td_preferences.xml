@@ -47,6 +47,18 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:title="@string/category_gps">
+
+        <SwitchPreference
+            android:key="gps_workaround"
+            android:defaultValue="true"
+            android:icon="@drawable/ic_gps"
+            android:title="@string/gps_workaround_title"
+            android:summary="@string/gps_workaround_summary"
+            />
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/category_about">
 
         <Preference
