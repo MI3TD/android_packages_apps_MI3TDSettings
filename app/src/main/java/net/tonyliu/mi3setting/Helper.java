@@ -111,4 +111,13 @@ public class Helper {
         Toast toast = Toast.makeText(context, context.getString(R.string.root_failed), Toast.LENGTH_SHORT);
         toast.show();
     }
+
+    public static void resetBaseband(Context context) {
+        if (writeLine("/sys/class/spi_master/spi0/spi0.0/reset", "1")) {
+            Toast toast = Toast.makeText(context, context.getString(R.string.baseband_resetting), Toast.LENGTH_LONG);
+            toast.show();
+        } else {
+            showRootFail(context);
+        }
+    }
 }
