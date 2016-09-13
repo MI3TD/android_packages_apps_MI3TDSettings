@@ -2,10 +2,11 @@ package net.tonyliu.mi3setting;
 
 import android.annotation.Nullable;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
+import android.telephony.TelephonyManager;
 
 
 public class BasebandAutoResetter extends Service {
@@ -25,10 +26,13 @@ public class BasebandAutoResetter extends Service {
         handler_.postDelayed(new Runnable() {
             @Override
             public void run() {
-                String radioVersion = Build.getRadioVersion();
                 BasebandAutoResetter self = BasebandAutoResetter.this;
-                if (radioVersion.length() == 0) {
-                    Helper.resetBaseband(self);
+
+                TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+                switch (telephonyManager.getSimState()) {
+                    case TelephonyManager.SIM_STATE_UNKNOWN:
+                    case TelephonyManager.SIM_STATE_ABSENT:
+                        Helper.resetBaseband(self);
                 }
                 self.stopSelf();
             }
