@@ -1,6 +1,7 @@
 package net.tonyliu.mi3setting;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -132,6 +133,12 @@ public class MainActivity extends AppCompatActivity {
         private static final String KEY_VERSION = "version";
 
         Context context_;
+
+        @Override
+        public void onAttach(Activity activity) {
+            context_ = activity.getApplicationContext();
+            super.onAttach(activity);
+        }
 
         @Override
         public void onAttach(Context context) {
