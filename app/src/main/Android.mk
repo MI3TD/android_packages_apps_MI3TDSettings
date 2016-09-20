@@ -21,6 +21,7 @@ LOCAL_STATIC_JAVA_LIBRARIES += android-support-v7-appcompat
 
 LOCAL_AAPT_FLAGS := --auto-add-overlay
 LOCAL_AAPT_FLAGS += --extra-packages android.support.v7.appcompat
+LOCAL_PROGUARD_FLAG_FILES := ../../proguard-rules.pro
 
 LOCAL_PRIVILEGED_MODULE := true
 
