@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="alipay_donate">Donate</string>
-    <string name="alipay_donate_code">apb3f3prsa5plage0a</string>
+    <string name="alipay_donate_code" translatable="false">apb3f3prsa5plage0a</string>
     <string name="alipay_donate_confirmmessage">Any amount is accepted.\nAre you sure to pay using AliPay?</string>
     <string name="alipay_donate_fail">Failed opening AliPay.\nMake sure it\'s installed and not blocked from auto start.</string>
     <string name="alipay_donate_summary">Cheers to the author</string>
@@ -34,16 +34,16 @@
     <string name="gps_workaround_summary">Fix GPS startup issue</string>
     <string name="gps_workaround_title">GPS workaround</string>
 
-    <string name="link_forum">http://bbs.zhiyoo.com/thread-12516340-1-1.html</string>
+    <string name="link_forum" translatable="false">http://bbs.zhiyoo.com/thread-12516340-1-1.html</string>
     <string name="link_forum_text">Forum</string>
-    <string name="link_project_home">https://github.com/MI3TD</string>
-    <string name="link_qqgroup_closed">mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26k%3DHKT4Ippe-aB50PghDabulG1N-lEsvwX8</string>
+    <string name="link_project_home" translatable="false">https://github.com/MI3TD</string>
+    <string name="link_qqgroup_closed" translatable="false">mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26k%3DHKT4Ippe-aB50PghDabulG1N-lEsvwX8</string>
     <string name="link_qqgroup_closed_summary">Closed group, require donation to join</string>
     <string name="link_qqgroup_closed_text">Join QQ test group</string>
-    <string name="link_qqgroup_open">mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26k%3DPVDWYWk1-aLqKJTjTXC6CadLdRubeEy4</string>
+    <string name="link_qqgroup_open" translatable="false">mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26k%3DPVDWYWk1-aLqKJTjTXC6CadLdRubeEy4</string>
     <string name="link_qqgroup_open_summary">Welcome anyone to join</string>
     <string name="link_qqgroup_open_text">Join QQ open group</string>
-    <string name="link_weibo">http://weibo.com/xuefer</string>
+    <string name="link_weibo" translatable="false">http://weibo.com/xuefer</string>
     <string name="link_weibo_text">Weibo</string>
 
     <string name="ril_auto_reset_summary">Reset conditionally on boot complete</string>
