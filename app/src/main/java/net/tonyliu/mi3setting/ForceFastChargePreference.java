@@ -18,6 +18,8 @@ public class ForceFastChargePreference extends SwitchPreference {
     // copied from android.os.BatteryManager.EXTRA_MAX_CHARGING_CURRENT;
     private static final String EXTRA_MAX_CHARGING_CURRENT = "max_charging_current";
     private static final String BATTERY_CURRENT_PATH = "/sys/class/power_supply/max170xx_battery/current_now";
+    private static final String MAX_CHARGING_CURRENT_PATH1 = "/sys/class/power_supply/ac/current_max";
+    private static final String MAX_CHARGING_CURRENT_PATH2 = "/sys/class/power_supply/usb/current_max";
 
     private static final int MSG_BATTERY_UPDATE = 302;
 
@@ -67,11 +69,19 @@ public class ForceFastChargePreference extends SwitchPreference {
     void updateChargingStatus() {
         String s = Helper.readOneLine(BATTERY_CURRENT_PATH);
         final int batteryCurrent = s == null ? -1 : Integer.parseInt(s);
+        int maxChargingCurrent = batteryStatus_.maxChargingCurrent;
+        if (maxChargingCurrent == -1) {
+            s = Helper.readOneLine(MAX_CHARGING_CURRENT_PATH1);
+            if (s == null) {
+                s = Helper.readOneLine(MAX_CHARGING_CURRENT_PATH2);
+            }
+            maxChargingCurrent = s == null ? -1000 : Integer.parseInt(s);
+        }
 
         if (batteryStatus_.plugged) {
             setSummary(getContext().getString(
                     R.string.force_fast_charge_charging,
-                    batteryCurrent / 1000, batteryStatus_.maxChargingCurrent / 1000
+                    batteryCurrent / 1000, maxChargingCurrent / 1000
             ));
         }
         else {
