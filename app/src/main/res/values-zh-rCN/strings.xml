@@ -48,4 +48,11 @@
     <string name="summary_thumbs_up">赞！</string>
 
     <string name="version">版本</string>
+
+    <string name="notice">提示</string>
+
+    <string name="QQ_not_installed_notice">您尚且没有安装QQ !</string>
+
+    <string name="ok">确定</string>
+
 </resources>
