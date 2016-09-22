@@ -88,21 +88,21 @@
             android:dialogMessage="@string/alipay_donate_confirmmessage"
             />
 
-        <Preference
+        <net.tonyliu.mi3setting.GroupPreference
+            app:code="@string/link_qqgroup_open"
             android:icon="@drawable/ic_group_add"
             android:title="@string/link_qqgroup_open_text"
             android:summary="@string/link_qqgroup_open_summary"
             >
-            <intent android:data="@string/link_qqgroup_open" />
-        </Preference>
+        </net.tonyliu.mi3setting.GroupPreference>
 
-        <Preference
+        <net.tonyliu.mi3setting.GroupPreference
+            app:code="@string/link_qqgroup_closed"
             android:icon="@drawable/ic_group_add"
             android:title="@string/link_qqgroup_closed_text"
             android:summary="@string/link_qqgroup_closed_summary"
             >
-            <intent android:data="@string/link_qqgroup_closed" />
-        </Preference>
+        </net.tonyliu.mi3setting.GroupPreference >
 
         <Preference
             android:key="version"
