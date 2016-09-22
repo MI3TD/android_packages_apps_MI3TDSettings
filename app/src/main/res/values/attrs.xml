@@ -4,4 +4,7 @@
     <declare-styleable name="AlipayDonate">
         <attr name="code" />
     </declare-styleable>
+    <declare-styleable name="GroupPreference">
+        <attr name="code" />
+    </declare-styleable>
 </resources>
