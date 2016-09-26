@@ -13,6 +13,8 @@ endif
 LOCAL_MODULE_TAGS := optional
 
 LOCAL_PACKAGE_NAME := MI3TDSettings
+LOCAL_CERTIFICATE := platform
+LOCAL_PRIVILEGED_MODULE := true
 
 LOCAL_SRC_FILES := $(call all-java-files-under, java)
 
@@ -22,7 +24,5 @@ LOCAL_STATIC_JAVA_LIBRARIES += android-support-v7-appcompat
 LOCAL_AAPT_FLAGS := --auto-add-overlay
 LOCAL_AAPT_FLAGS += --extra-packages android.support.v7.appcompat
 LOCAL_PROGUARD_FLAG_FILES := ../../proguard-rules.pro
-
-LOCAL_PRIVILEGED_MODULE := true
 
 include $(BUILD_PACKAGE)
