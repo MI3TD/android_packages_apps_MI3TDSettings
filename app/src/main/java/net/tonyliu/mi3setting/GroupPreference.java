@@ -14,7 +14,7 @@ public class GroupPreference extends Preference {
 
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.GroupPreference, 0, 0);
         try {
-            group_ = a.getString(R.styleable.AlipayDonate_code);
+            group_ = a.getString(R.styleable.GroupPreference_code);
 
             if (group_ == null) {
                 throw new IllegalArgumentException("GroupPreference: error - code is not specified");
