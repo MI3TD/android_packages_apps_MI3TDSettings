@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+    <string name="QQ_not_installed_notice">您尚且没有安装QQ !</string>
+
     <string name="alipay_donate">加油</string>
     <string name="alipay_donate_confirmmessage">任意额度都接受。\n确认要通过支付宝付款吗？</string>
     <string name="alipay_donate_fail">无法支付宝失败。\n请确保支付宝已经安装并且没有被阻止运行。</string>
@@ -40,6 +42,10 @@
     <string name="link_qqgroup_open_text">加入交流群</string>
     <string name="link_weibo_text">微博</string>
 
+    <string name="notice">提示</string>
+
+    <string name="ok">确定</string>
+
     <string name="ril_auto_reset_summary">开机完成后自动判断并重置基带</string>
     <string name="ril_auto_reset_text">自动重置基带</string>
 
@@ -48,11 +54,4 @@
     <string name="summary_thumbs_up">赞！</string>
 
     <string name="version">版本</string>
-
-    <string name="notice">提示</string>
-
-    <string name="QQ_not_installed_notice">您尚且没有安装QQ !</string>
-
-    <string name="ok">确定</string>
-
 </resources>

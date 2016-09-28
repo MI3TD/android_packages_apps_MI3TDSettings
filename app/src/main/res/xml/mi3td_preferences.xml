@@ -93,16 +93,14 @@
             android:icon="@drawable/ic_group_add"
             android:title="@string/link_qqgroup_open_text"
             android:summary="@string/link_qqgroup_open_summary"
-            >
-        </net.tonyliu.mi3setting.GroupPreference>
+            />
 
         <net.tonyliu.mi3setting.GroupPreference
             app:code="@string/link_qqgroup_closed"
             android:icon="@drawable/ic_group_add"
             android:title="@string/link_qqgroup_closed_text"
             android:summary="@string/link_qqgroup_closed_summary"
-            >
-        </net.tonyliu.mi3setting.GroupPreference >
+            />
 
         <Preference
             android:key="version"

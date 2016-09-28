@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+    <string name="QQ_not_installed_notice">You have not installed "QQ" yet !</string>
+
     <string name="alipay_donate">Donate</string>
     <string name="alipay_donate_code" translatable="false">apb3f3prsa5plage0a</string>
     <string name="alipay_donate_confirmmessage">Any amount is accepted.\nAre you sure to pay using AliPay?</string>
@@ -34,6 +36,7 @@
     <string name="gps_workaround_summary">Fix GPS startup issue</string>
     <string name="gps_workaround_title">GPS workaround</string>
 
+    <string name="link_base_key" translatable="false">mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26k%3D</string>
     <string name="link_forum" translatable="false">http://bbs.zhiyoo.com/thread-12516340-1-1.html</string>
     <string name="link_forum_text">Forum</string>
     <string name="link_project_home" translatable="false">https://github.com/MI3TD</string>
@@ -45,7 +48,10 @@
     <string name="link_qqgroup_open_text">Join QQ open group</string>
     <string name="link_weibo" translatable="false">http://weibo.com/xuefer</string>
     <string name="link_weibo_text">Weibo</string>
-    <string name="link_base_key">mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26k%3D</string>
+
+    <string name="notice">Notice</string>
+
+    <string name="ok">OK</string>
 
     <string name="ril_auto_reset_summary">Reset conditionally on boot complete</string>
     <string name="ril_auto_reset_text">Auto reset baseband</string>
@@ -55,11 +61,4 @@
     <string name="summary_thumbs_up">Thumbs up</string>
 
     <string name="version">Version</string>
-
-    <string name="notice">Notice</string>
-
-    <string name="QQ_not_installed_notice">You have not installed "QQ" yet !</string>
-
-    <string name="ok">OK</string>
-
 </resources>
