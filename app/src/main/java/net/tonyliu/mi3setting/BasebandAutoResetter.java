@@ -32,7 +32,7 @@ public class BasebandAutoResetter extends Service {
                 switch (telephonyManager.getSimState()) {
                     case TelephonyManager.SIM_STATE_UNKNOWN:
                     case TelephonyManager.SIM_STATE_ABSENT:
-                        Helper.resetBaseband(self);
+                        new Helper(self).resetBaseband();
                 }
                 self.stopSelf();
             }

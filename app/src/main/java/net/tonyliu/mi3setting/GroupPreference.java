@@ -26,8 +26,7 @@ public class GroupPreference extends Preference {
 
     @Override
     protected void onClick() {
-        Helper helper = new Helper(getContext());
-        helper.joinQQGroup(group_);
+        new Helper(getContext()).joinQQGroup(group_);
     }
 
 }

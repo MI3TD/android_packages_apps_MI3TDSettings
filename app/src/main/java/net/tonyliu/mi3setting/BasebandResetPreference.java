@@ -16,7 +16,7 @@ public class BasebandResetPreference extends DialogPreference {
         super.onDialogClosed(positiveResult);
 
         if (positiveResult) {
-            Helper.resetBaseband(getContext());
+            new Helper(getContext()).resetBaseband();
         }
     }
 }

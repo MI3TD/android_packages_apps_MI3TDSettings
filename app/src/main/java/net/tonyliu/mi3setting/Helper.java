@@ -19,10 +19,10 @@ import java.io.IOException;
 
 public class Helper {
 
-    Context context;
+    private Context context_;
 
     public Helper(Context context) {
-        this.context = context;
+        context_ = context;
     }
 
     public static String exec(boolean su, String cmdLine) throws IOException {
@@ -119,23 +119,23 @@ public class Helper {
         return SystemProperties.getBoolean(name, def);
     }
 
-    public static void showRootFail(Context context) {
-        Toast toast = Toast.makeText(context, context.getString(R.string.root_failed), Toast.LENGTH_SHORT);
+    public void showRootFail() {
+        Toast toast = Toast.makeText(context_, context_.getString(R.string.root_failed), Toast.LENGTH_SHORT);
         toast.show();
     }
 
-    public static void resetBaseband(Context context) {
+    public void resetBaseband() {
         if (writeLine("/sys/class/spi_master/spi0/spi0.0/reset", "1")) {
-            Toast toast = Toast.makeText(context, context.getString(R.string.baseband_resetting), Toast.LENGTH_LONG);
+            Toast toast = Toast.makeText(context_, context_.getString(R.string.baseband_resetting), Toast.LENGTH_LONG);
             toast.show();
         } else {
-            showRootFail(context);
+            showRootFail();
         }
     }
 
-    public static boolean hasPermission(Context context, String[] perms) {
+    public boolean hasPermission(String[] perms) {
         for (String perm : perms) {
-            if (!hasPermission(context, perm)) {
+            if (!hasPermission(perm)) {
                 return false;
             }
         }
@@ -143,9 +143,9 @@ public class Helper {
         return true;
     }
 
-    public static boolean hasPermission(Context context, String perm) {
+    public boolean hasPermission(String perm) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return context.checkSelfPermission(perm) == PackageManager.PERMISSION_GRANTED;
+            return context_.checkSelfPermission(perm) == PackageManager.PERMISSION_GRANTED;
         }
 
         return true;
@@ -153,17 +153,17 @@ public class Helper {
 
     public void joinQQGroup(String key) {
         Intent intent = new Intent();
-        intent.setData(Uri.parse(context.getResources().getString(R.string.link_base_key) + key));
+        intent.setData(Uri.parse(context_.getResources().getString(R.string.link_base_key) + key));
         // 此Flag可根据具体产品需要自定义，如设置，则在加群界面按返回，返回手Q主界面，不设置，按返回会返回到呼起产品界面    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         try {
-            context.startActivity(intent);
+            context_.startActivity(intent);
         } catch (Exception e) {
 
-            AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-            dialog.setTitle(context.getResources().getString(R.string.notice));
-            dialog.setMessage(context.getResources().getString(R.string.QQ_not_installed_notice));
+            AlertDialog.Builder dialog = new AlertDialog.Builder(context_);
+            dialog.setTitle(context_.getResources().getString(R.string.notice));
+            dialog.setMessage(context_.getResources().getString(R.string.QQ_not_installed_notice));
             dialog.setCancelable(true);
-            dialog.setPositiveButton(context.getResources().getString(R.string.ok), null);
+            dialog.setPositiveButton(context_.getResources().getString(R.string.ok), null);
             dialog.show();
         }
     }

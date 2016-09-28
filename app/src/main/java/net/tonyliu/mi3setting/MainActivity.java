@@ -132,17 +132,20 @@ public class MainActivity extends AppCompatActivity {
 
         private static final String KEY_VERSION = "version";
 
-        Context context_;
+        private Context context_;
+        private Helper helper_;
 
         @Override
         public void onAttach(Activity activity) {
             context_ = activity.getApplicationContext();
+            helper_ = new Helper(context_);
             super.onAttach(activity);
         }
 
         @Override
         public void onAttach(Context context) {
             context_ = context;
+            helper_ = new Helper(context_);
             super.onAttach(context);
         }
 
@@ -217,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         private void startGpsFixService() {
-            if (Helper.hasPermission(context_, LOCATION_PERMS)) {
+            if (helper_.hasPermission(LOCATION_PERMS)) {
                 context_.startService(new Intent(context_, GpsFixer.class));
             }
             else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
