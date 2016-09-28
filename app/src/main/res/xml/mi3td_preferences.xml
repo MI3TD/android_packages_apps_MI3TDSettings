@@ -5,7 +5,7 @@
     >
 
     <PreferenceCategory
-        android:title="@string/category_sounds">
+        android:title="@string/category_features">
 
         <ListPreference
             android:icon="@drawable/ic_phone_in_talk"
@@ -14,10 +14,17 @@
             android:entries="@array/cnr_titles"
             android:entryValues="@array/cnr_values"
             android:key="persist.audio.vns.mode"/>
+
+        <net.tonyliu.mi3setting.ForceFastChargePreference
+            android:key="persist.force_fast_charge"
+            android:icon="@drawable/ic_battery"
+            android:title="@string/force_fast_charge"
+            android:summary="x.x"
+            />
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/category_cellular_network">
+        android:title="@string/category_workarounds">
 
         <net.tonyliu.mi3setting.BasebandResetPreference
             android:icon="@drawable/ic_sim_card"
@@ -29,25 +36,11 @@
 
         <SwitchPreference
             android:defaultValue="true"
+            android:icon="@drawable/ic_sim_card"
             android:key="ril_auto_rest"
             android:title="@string/ril_auto_reset_text"
             android:summary="@string/ril_auto_reset_summary"
             />
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/category_battery">
-
-        <net.tonyliu.mi3setting.ForceFastChargePreference
-            android:key="persist.force_fast_charge"
-            android:icon="@drawable/ic_battery"
-            android:title="@string/force_fast_charge"
-            android:summary="x.x"
-            />
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="@string/category_gps">
 
         <SwitchPreference
             android:key="gps_workaround"

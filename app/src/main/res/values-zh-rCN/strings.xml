@@ -15,10 +15,8 @@
     <string name="baseband_resetting">正在重置基带 ...</string>
 
     <string name="category_about">关于</string>
-    <string name="category_battery">电池</string>
-    <string name="category_cellular_network">移动网络</string>
-    <string name="category_gps">GPS</string>
-    <string name="category_sounds">声音</string>
+    <string name="category_features">功能设置</string>
+    <string name="category_workarounds">规避问题</string>
 
     <string name="cnr">通话降噪</string>
     <string name="cnr_dual">使用双麦克风降噪</string>
