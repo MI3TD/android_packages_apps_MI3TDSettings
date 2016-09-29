@@ -15,6 +15,7 @@
     <string name="baseband_resetting">正在重置基带 ...</string>
 
     <string name="category_about">关于</string>
+    <string name="category_advanced">高级</string>
     <string name="category_features">功能设置</string>
     <string name="category_workarounds">规避问题</string>
 
@@ -50,6 +51,10 @@
     <string name="root_failed">无法获取 su 权限，注意授权</string>
 
     <string name="summary_thumbs_up">赞！</string>
+
+    <string name="systemswitch_confirmMessage">请确保您安装了支持双系统切换的 TWRP，并确保另一个系统可正常启动\n\n现在执行切换吗？</string>
+    <string name="systemswitch_summary">当前系统：%1$d</string>
+    <string name="systemswitch_title">切换系统</string>
 
     <string name="version">版本</string>
 </resources>

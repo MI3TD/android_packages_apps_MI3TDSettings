@@ -52,6 +52,19 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:title="@string/category_advanced">
+
+        <net.tonyliu.mi3setting.SystemSwitchPreference
+            android:icon="@drawable/ic_sim_card"
+            android:title="@string/systemswitch_title"
+            android:summary="Current system is X"
+            android:dialogIcon="@drawable/ic_warning"
+            android:dialogMessage="@string/systemswitch_confirmMessage"
+            />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:title="@string/category_about">
 
         <Preference

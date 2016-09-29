@@ -5,10 +5,14 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.PowerManager;
 import android.os.SystemProperties;
 import android.widget.Toast;
 import android.content.Context;
 
+import java.io.File;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.RuntimeException;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -168,4 +172,34 @@ public class Helper {
         }
     }
 
+    public static int getCurrentSystem() {
+        return get("ro.syspart", "system").equals("system1") ? 2 : 1;
+    }
+
+    private final String switchSystemFile = "/cache/SwitchSystem.zip";
+
+    public void switchSystem() {
+        new File("/cache/recovery").mkdir();
+        new File(switchSystemFile).delete();
+
+        try (InputStream ifs = context_.getResources().openRawResource(R.raw.switch_system);
+             OutputStream ofs = new FileOutputStream(switchSystemFile)
+        ) {
+            byte[] buffer = new byte[1024 * 1024];
+            for (int bytes = ifs.read(buffer); bytes != -1; bytes = ifs.read(buffer)) {
+                ofs.write(buffer, 0, bytes);
+            }
+        } catch (IOException e) {
+            Toast.makeText(context_, "Error writing " + switchSystemFile, Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (!writeLine("/cache/recovery/command", "--update_package=" + switchSystemFile)) {
+            Toast.makeText(context_, "Error writing /cache/recovery/command", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        PowerManager powerManager = (PowerManager) context_.getSystemService(Context.POWER_SERVICE);
+        powerManager.reboot("recovery");
+    }
 }
