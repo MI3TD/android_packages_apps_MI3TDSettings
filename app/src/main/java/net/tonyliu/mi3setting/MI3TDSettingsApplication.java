@@ -1,3 +1,4 @@
+/*
 package net.tonyliu.mi3setting;
 
 import android.app.Application;
@@ -19,3 +20,4 @@ public class MI3TDSettingsApplication extends Application {
         // Normal app init code...
     }
 }
+// */
