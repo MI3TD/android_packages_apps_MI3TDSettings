@@ -27,9 +27,10 @@
     <string name="extra_settings">Extra Settings</string>
 
     <string name="force_fast_charge">Force Fast Charge</string>
-    <string name="force_fast_charge_charging">Current: %1$dmA\nMax: %2$dmA</string>
+    <string name="force_fast_charge_charging">%dmA</string>
     <string name="force_fast_charge_confirmmessage">Enableing this feature will ignore USB Adapter Type Detection and lift max charging current up to 2100mA.\nActual charging current is still limited to your AC adapter.\n\nAny damage cause by this feature is at your own risk.</string>
-    <string name="force_fast_charge_discharging">Current: %1$dmA (Discharging)</string>
+    <string name="force_fast_charge_discharging">Discharging</string>
+    <string name="force_fast_charge_summary">Current: %1$dmA\nMax: %2$s\nMeasured capacity: %3$dmAh</string>
 
     <string name="gps_workaround_executed">GPS workaround kicked in</string>
     <string name="gps_workaround_summary">Fix GPS startup issue</string>

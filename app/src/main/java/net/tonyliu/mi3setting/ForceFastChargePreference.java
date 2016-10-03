@@ -18,6 +18,7 @@ public class ForceFastChargePreference extends SwitchPreference {
     // copied from android.os.BatteryManager.EXTRA_MAX_CHARGING_CURRENT;
     private static final String EXTRA_MAX_CHARGING_CURRENT = "max_charging_current";
     private static final String BATTERY_CURRENT_PATH = "/sys/class/power_supply/max170xx_battery/current_now";
+    private static final String CHARGE_FULL_PATH = "/sys/class/power_supply/max170xx_battery/charge_full";
     private static final String MAX_CHARGING_CURRENT_PATH1 = "/sys/class/power_supply/ac/current_max";
     private static final String MAX_CHARGING_CURRENT_PATH2 = "/sys/class/power_supply/usb/current_max";
 
@@ -67,29 +68,28 @@ public class ForceFastChargePreference extends SwitchPreference {
     }
 
     void updateChargingStatus() {
-        String s = Helper.readOneLine(BATTERY_CURRENT_PATH);
-        final int batteryCurrent = s == null ? -1 : Integer.parseInt(s);
+        final int batteryCurrent = Helper.readInt(BATTERY_CURRENT_PATH, -1);
+        final int chargeFull = Helper.readInt(CHARGE_FULL_PATH, -1);
         int maxChargingCurrent = batteryStatus_.maxChargingCurrent;
         if (maxChargingCurrent == -1) {
-            s = Helper.readOneLine(MAX_CHARGING_CURRENT_PATH1);
-            if (s == null) {
-                s = Helper.readOneLine(MAX_CHARGING_CURRENT_PATH2);
+            maxChargingCurrent = Helper.readInt(MAX_CHARGING_CURRENT_PATH1, -1);
+            if (maxChargingCurrent == -1) {
+                maxChargingCurrent = Helper.readInt(MAX_CHARGING_CURRENT_PATH2, -1);
             }
-            maxChargingCurrent = s == null ? -1000 : Integer.parseInt(s);
         }
 
+        String max;
         if (batteryStatus_.plugged) {
-            setSummary(getContext().getString(
-                    R.string.force_fast_charge_charging,
-                    batteryCurrent / 1000, maxChargingCurrent / 1000
-            ));
+            max = getContext().getString(R.string.force_fast_charge_charging, maxChargingCurrent / 1000);
         }
         else {
-            setSummary(getContext().getString(
-                    R.string.force_fast_charge_discharging,
-                    batteryCurrent / 1000
-            ));
+            max = getContext().getString(R.string.force_fast_charge_discharging);
         }
+
+        setSummary(getContext().getString(
+                R.string.force_fast_charge_summary,
+                batteryCurrent / 1000, max, chargeFull / 1000
+        ));
     }
 
     private final Handler handler_ = new Handler() {

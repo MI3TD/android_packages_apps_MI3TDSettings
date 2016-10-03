@@ -87,6 +87,15 @@ public class Helper {
         }
     }
 
+    public static int readInt(String fileName) {
+        return readInt(fileName, 0);
+    }
+
+    public static int readInt(String fileName, int defaultValue) {
+        String s = readOneLine(fileName);
+        return s == null ? defaultValue : Integer.parseInt(s);
+    }
+
     public static boolean writeLine(String fileName, String value) {
         try (FileOutputStream fos = new FileOutputStream(fileName)) {
             fos.write(value.getBytes());
